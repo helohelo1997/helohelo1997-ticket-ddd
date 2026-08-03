@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>デモチケット作成</title>
+  <style>
+    *{box-sizing:border-box}
+    body{margin:0;background:#f3f4f6;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",Meiryo,Arial,sans-serif;color:#222}
+    .wrap{width:calc(100% - 32px);max-width:420px;margin:18px auto 40px;background:#fff;border-radius:16px;padding:18px;box-shadow:0 8px 26px rgba(0,0,0,.12)}
+    h1{font-size:22px;margin:0 0 6px;text-align:center}.lead{font-size:12px;line-height:1.6;color:#666;margin:0 0 18px;text-align:center}
+    label{display:block;font-size:13px;font-weight:700;color:#444;margin:14px 0 6px}
+    input,textarea{width:100%;border:1px solid #d6d6d6;border-radius:10px;padding:11px 12px;font-size:16px;font-family:inherit;background:#fff}
+    textarea{min-height:72px;resize:vertical}input[type="color"]{height:44px;padding:4px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .note{margin:14px 0 0;padding:10px 12px;border-radius:10px;background:#fff7ed;color:#9a3412;font-size:12px;line-height:1.6}
+    button{width:100%;margin-top:18px;border:0;border-radius:999px;padding:15px;font-size:17px;font-weight:800;color:#fff;background:linear-gradient(90deg,#7bc3e2,#489afb);box-shadow:0 6px 16px rgba(72,154,251,.28)}button:active{opacity:.78}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <h1>デモチケット作成</h1><p class="lead">入力内容を5.htmlへ渡して、スマホ表示に近いチケット画面を表示します。</p>
+    <label>イベント画像URLまたは画像ファイル名</label><input id="image" value="https://storage.googleapis.com/playyte-ticket-prod_event/oSKEcfB0O9Zh8m0VSwuV_895248_1782217279208.webp">
+    <label>公演名</label><input id="title" value="SPARK 2026 渋谷納涼祭">
+    <label>会場名</label><textarea id="venue">ベルサール渋谷ガーデン / Spotify O-nest / SHIBUYA DESEO / SHIBUYA THE GAME / チェルシーホテル / 渋谷Star Lounge / Studio Freedom / LIVE STAGE GUILTY / SHIBUYA FOWS</textarea>
+    <div class="grid"><div><label>日付</label><input id="date" value="7.11"></div><div><label>曜日</label><input id="weekday" value="土"></div></div>
+    <div class="grid"><div><label>OPEN</label><input id="openTime" value="9:00"></div><div><label>START</label><input id="startTime" value="9:30"></div></div>
+    <label>表示名</label><input id="name" value="デモ太郎"><label>お気に入り/推し表示</label><input id="favorite" value="ハニースパイスRe.">
+    <label>券名</label><input id="ticketName" value="【DAY1】VIPチケット先行抽選"><label>整理番号表示</label><input id="ticketType" value="S10">
+    <div class="grid"><div><label>画面背景色</label><input id="bodyColor" type="color" value="#f9d1b7"></div><div><label>番号背景色</label><input id="ticketColor" type="color" value="#ec660f"></div></div>
+    <div class="note">※このHTMLはデザイン確認用です。QRコードはなく、入場・認証には使用できません。</div><button onclick="openPreview()">5.htmlで表示する</button>
+  </main>
+<script>
+function openPreview(){const ids=["image","title","venue","date","weekday","openTime","startTime","name","favorite","ticketName","ticketType","bodyColor","ticketColor"];const params=new URLSearchParams();ids.forEach(id=>params.set(id,document.getElementById(id).value));location.href="5.html?"+params.toString();}
+</script>
+</body></html>
