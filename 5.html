@@ -6,7 +6,7 @@
 <title>DEMO Ticket Detail</title>
 <style>
 :root{
-  --bg:#f9d1b7; --w1:#ffffff; --w3:#f7f7f7; --w4:#efefef; --b1:#4f4745; --b2:#4f4745; --b3:#919191; --b4:#c4c4c4;
+  --bg:#f9d1b7; --w1:#ffffff; --w3:#f7f7f7; --w4:#efefef; --b1:#4f4745; --b2:#4f4745; --b3:#919191;
   --accent:#ec660f; --pill:#333;
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -38,7 +38,7 @@ button{font-family:inherit}
   padding:0 2rem;border-bottom:1px solid rgba(0,0,0,.05);
 }
 .logo{display:flex;align-items:center;line-height:1;background:none;color:inherit;cursor:pointer}
-.actions{display:flex;align-items:center;gap:1.4rem}.header .logo{white-space:nowrap}.header-logo-svg{width:14.2rem;height:auto;display:block}
+.actions{display:flex;align-items:center;gap:1.4rem}.header .logo{white-space:nowrap}.header-logo-svg{width:18.2rem;height:2.6rem;display:block;flex:0 0 auto}
 .search{width:2.2rem;height:2.2rem;border:.22rem solid #333;border-radius:50%;position:relative;opacity:.8}
 .search:after{content:"";position:absolute;width:1rem;height:.22rem;background:#333;right:-.65rem;bottom:.05rem;transform:rotate(45deg);border-radius:1rem}
 .menu{width:2.6rem;display:flex;flex-direction:column;gap:.55rem}.menu span{height:.25rem;background:#333;border-radius:1rem}
@@ -60,14 +60,14 @@ button{font-family:inherit}
 .image-blur{position:absolute;inset:0;background:center/cover no-repeat;filter:blur(7px);transform:scale(1.08);z-index:0}
 .image-main{position:relative;z-index:1;width:72%;height:86%;background-position:center;background-size:contain;background-repeat:no-repeat;background-color:rgba(255,255,255,.08);border-radius:.2rem;filter:drop-shadow(0 0 4px rgba(0,0,0,.4))}
 .image-main.noimage{display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#ffb37b,#f05f88,#4aa9e8);color:rgba(255,255,255,.85);font-size:3.2rem;font-weight:900;letter-spacing:.05em}
-.stamp{display:none;position:absolute;right:.6rem;bottom:.6rem;width:14.8rem;height:14.8rem;z-index:20;border-radius:50%;overflow:hidden;pointer-events:none;background:rgba(255,255,255,.28);color:#ff0000;transform:scale(.72);transform-origin:right bottom}
+.stamp{display:none;position:absolute;right:.3rem;bottom:.3rem;width:16.6rem;height:16.6rem;z-index:20;border-radius:50%;overflow:visible;pointer-events:none;background:rgba(255,255,255,.92);color:#ff0000;transform:none;transform-origin:right bottom}
 .stamp.show{display:block}
-.stamp .top,.stamp .stamp-bottom{position:absolute;left:0;right:0;width:100%;height:1.8rem;margin:0;padding:0;border:0;background:transparent;color:#ff0000;font-size:1.7rem;font-weight:700;line-height:1.8rem;text-align:center;letter-spacing:0;z-index:3;display:block;white-space:nowrap}
+.stamp .top,.stamp .stamp-bottom{position:absolute;color:#ff0000;background:transparent;font-size:1.7rem;font-weight:700;line-height:1.8rem;text-align:center;letter-spacing:0;z-index:10;display:block;white-space:nowrap}
 .stamp .top{top:1.45rem;bottom:auto;transform:none}
 .stamp .stamp-bottom{top:auto;bottom:1.45rem;transform:rotate(180deg);transform-origin:center center}
-.stamp .time{position:absolute;left:0;right:0;top:50%;width:100%;margin:0;padding:0;transform:translateY(-50%);font-family:Hiragino Sans,Hiragino Kaku Gothic ProN,Helvetica Neue,Arial,Meiryo,sans-serif;font-size:2.8rem;font-weight:700;line-height:100%;text-align:center;color:#ff0000;z-index:3;background:transparent;display:block;white-space:nowrap}
-.circle{position:absolute;top:50%;left:50%;border-radius:50%;transform:translate(-50%,-50%);border:solid #ff0000;z-index:1;background:transparent}
-.c1{width:14.4rem;height:14.4rem;border-width:.35rem}.c2{width:13.5rem;height:13.5rem;border-width:.1rem}.c3{width:8.8rem;height:8.8rem;border-width:.35rem}.c4{width:8rem;height:8rem;border-width:.1rem}
+.stamp .time{position:absolute;left:0;right:0;top:50%;width:100%;margin:0;padding:0;transform:translateY(-50%);font-family:Hiragino Sans,Hiragino Kaku Gothic ProN,Helvetica Neue,Arial,Meiryo,sans-serif;font-size:2.8rem;font-weight:700;line-height:100%;text-align:center;color:#ff0000;z-index:10;background:transparent;display:block;white-space:nowrap}
+.circle{position:absolute;top:50%;left:50%;border-radius:50%;transform:translate(-50%,-50%);z-index:1;background:transparent;border:0;box-sizing:border-box}
+.c1{width:16.6rem;height:16.6rem;box-shadow:0 0 0 2px #ff0000}.c2{display:block;width:15.8rem;height:15.8rem;box-shadow:0 0 0 1px #ff0000}.c3{width:10.2rem;height:10.2rem;box-shadow:0 0 0 3px #ff0000}.c4{width:9.4rem;height:9.4rem;box-shadow:0 0 0 1px #ff0000}
 .details{
   background:#fff;
   padding:1.6rem 2rem;
@@ -99,7 +99,7 @@ button{font-family:inherit}
 .date-row{display:flex;align-items:center;gap:.8rem;height:2.8rem}.date{font-family:Helvetica,Arial,Meiryo,sans-serif;font-size:2.8rem;font-weight:700;line-height:100%;color:var(--b1)}.weekday{font-family:Helvetica,Arial,Meiryo,sans-serif;font-size:1.6rem;font-weight:700;line-height:100%;color:var(--b1)}.vline{height:100%;width:1px;background:#eee}.timebox{display:flex;flex-direction:column;align-items:center;gap:.2rem;line-height:1}.label{font-family:Helvetica,Arial,Meiryo,sans-serif;font-size:1rem;font-weight:400;line-height:100%;color:var(--b3)}.value{font-family:Helvetica,Arial,Meiryo,sans-serif;font-size:1.6rem;font-weight:700;line-height:100%;color:var(--b1)}.dotted{height:1px;width:100%;background-image:repeating-linear-gradient(to right,#e5e5e5 0,#e5e5e5 4px,transparent 4px,transparent 8px)}
 .holder{display:flex;align-items:center;justify-content:space-between;gap:1.6rem}.holder-left{display:flex;flex-direction:column;gap:1.2rem;min-width:0;flex:1;overflow:hidden;white-space:nowrap}.name-row{display:flex;align-items:center;gap:1.2rem;font-size:1.2rem}.name{font-weight:700;color:var(--b2)}.sama{font-weight:400;color:var(--b2)}.favorite{font-size:1.2rem;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.ticket-name{font-size:1.6rem;font-weight:800}.number{background:var(--accent);border-radius:2px;color:#fff;padding:1.1rem .8rem;font-size:2.4rem;font-weight:900;line-height:1;white-space:nowrap}
 .note{margin:1.4rem auto 0;max-width:34rem;text-align:center;color:rgba(255,255,255,.95);font-size:1.15rem;font-weight:800;line-height:1.6;text-shadow:0 1px 3px rgba(0,0,0,.25)}
-.bottom{position:fixed;left:50%;bottom:0;transform:translateX(-50%);width:100%;max-width:48rem;height:8.2rem;z-index:30;background:rgba(255,255,255,.88);border-top:1px solid rgba(0,0,0,.06);backdrop-filter:blur(8px);display:flex;align-items:center;gap:1.4rem;padding:.8rem 1.6rem .8rem 2rem}.bottom-left{display:flex;gap:1.4rem;flex:0 0 auto}.bottom-item{width:4.8rem;text-align:center;color:#344;display:flex;flex-direction:column;align-items:center;gap:.45rem;font-size:1.15rem;font-weight:800}.icon{font-size:2rem;line-height:1}.bottom-item{background:transparent;border:none;box-shadow:none;outline:none;padding:0;appearance:none;-webkit-appearance:none;justify-content:center}.bottom-item:focus,.bottom-item:active{background:transparent;border:none;box-shadow:none;outline:none}.bottom-item svg.nav-svg-icon{color:#344;display:block;flex-shrink:0;background:transparent;border:none;box-shadow:none}.bottom-item svg.share-icon{width:2.7rem;height:2.2rem}.bottom-item svg.detail-icon{width:2.2rem;height:2.2rem}.slider{box-sizing:border-box;padding:0;font-family:Hiragino Sans,Hiragino Kaku Gothic ProN,Helvetica Neue,Arial,Meiryo,sans-serif;-webkit-text-size-adjust:100%;-webkit-font-smoothing:antialiased;display:flex;align-items:center;justify-content:center;margin:0;color:var(--w1);background:var(--accent);border:none;cursor:pointer;height:5.6rem;width:25.2rem;flex:1;min-width:0;border-radius:3.2rem;position:relative;overflow:hidden;box-shadow:inset 0 0 0 1px rgba(0,0,0,.04)}.slider.done{background:#c6c6c6}.slider-text{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font-family:Hiragino Sans,Hiragino Kaku Gothic ProN,Helvetica Neue,Arial,Meiryo,sans-serif;color:var(--w1);font-size:1.6rem;font-weight:700;line-height:100%;pointer-events:none}.slider.done .slider-text{color:#fff}.small{display:block;margin-top:.35rem;font-family:Hiragino Sans,Hiragino Kaku Gothic ProN,Helvetica Neue,Arial,Meiryo,sans-serif;font-size:1.1rem;font-weight:700;line-height:120%;color:var(--w1)}.knob{position:absolute;top:.55rem;left:.55rem;width:4.7rem;height:4.7rem;border-radius:50%;background:#fff;box-shadow:0 2px 7px rgba(0,0,0,.25);display:flex;align-items:center;justify-content:center;font-size:2.7rem;font-weight:700;color:#555;cursor:grab;user-select:none;touch-action:none}.knob:active{cursor:grabbing}
+.bottom{position:fixed;left:50%;bottom:0;transform:translateX(-50%);width:100%;max-width:48rem;height:8.2rem;z-index:30;background:rgba(255,255,255,.92);border-top:1px solid rgba(0,0,0,.06);backdrop-filter:blur(8px);display:flex;align-items:center;gap:1.4rem;padding:.8rem 1.6rem .8rem 2rem}.bottom-left{display:flex;gap:1.4rem;flex:0 0 auto}.bottom-item{width:4.8rem;text-align:center;color:#344;display:flex;flex-direction:column;align-items:center;gap:.45rem;font-size:1.15rem;font-weight:800}.icon{font-size:2rem;line-height:1}.bottom-item{background:transparent;border:none;box-shadow:none;outline:none;padding:0;appearance:none;-webkit-appearance:none;justify-content:center}.bottom-item:focus,.bottom-item:active{background:transparent;border:none;box-shadow:none;outline:none}.bottom-item svg.nav-svg-icon{color:#344;display:block;flex-shrink:0;background:transparent;border:none;box-shadow:none}.bottom-item svg.share-icon{width:2.7rem;height:2.2rem}.bottom-item svg.detail-icon{width:2.2rem;height:2.2rem}.slider{box-sizing:border-box;padding:0;font-family:Hiragino Sans,Hiragino Kaku Gothic ProN,Helvetica Neue,Arial,Meiryo,sans-serif;-webkit-text-size-adjust:100%;-webkit-font-smoothing:antialiased;display:flex;align-items:center;justify-content:center;margin:0;color:var(--w1);background:var(--accent);border:none;cursor:pointer;height:5.6rem;width:25.2rem;flex:1;min-width:0;border-radius:3.2rem;position:relative;overflow:hidden;box-shadow:inset 0 0 0 1px rgba(0,0,0,.04)}.slider.done{background:#c6c6c6}.slider-text{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font-family:Hiragino Sans,Hiragino Kaku Gothic ProN,Helvetica Neue,Arial,Meiryo,sans-serif;color:var(--w1);font-size:1.6rem;font-weight:700;line-height:100%;pointer-events:none}.slider.done .slider-text{color:#fff}.small{display:block;margin-top:.35rem;font-family:Hiragino Sans,Hiragino Kaku Gothic ProN,Helvetica Neue,Arial,Meiryo,sans-serif;font-size:1.1rem;font-weight:700;line-height:120%;color:var(--w1)}.knob{position:absolute;top:.55rem;left:.55rem;width:4.7rem;height:4.7rem;border-radius:50%;background:#fff;box-shadow:0 2px 7px rgba(0,0,0,.25);display:flex;align-items:center;justify-content:center;font-size:2.7rem;font-weight:700;color:#555;cursor:grab;user-select:none;touch-action:none}.knob:active{cursor:grabbing}
 
 .Typography_root__9AOcJ{color:var(--color);background-color:var(--bg-color);display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;line-height:1}
 .TicketAction_statusPill__6TSMl{display:flex;align-items:center;justify-content:center;width:100%;height:100%;background:#c6c6c6;border-radius:3.2rem}
@@ -114,21 +114,62 @@ button{font-family:inherit}
 @keyframes EnterModal_glowing__FH9_y{0%{text-shadow:0 0 5px rgba(255,0,0,.45)}50%{text-shadow:0 0 10px rgba(255,0,0,.85),0 0 24px rgba(255,0,0,.55)}to{text-shadow:0 0 5px rgba(255,0,0,.45)}}
 .confirm-body{display:flex;flex-direction:column;align-items:center;text-align:center;gap:.8rem}.confirm-staff{margin:0;color:#ff0000;font-size:1.5rem;font-weight:900;line-height:1.35;white-space:nowrap}.confirm-title{margin:0;color:#231916;font-size:1.4rem;font-weight:800;line-height:1.4;white-space:nowrap}.confirm-warning{margin:2.5rem 0 0;color:#777;font-size:1rem;font-weight:500;line-height:1.55;text-align:left;width:100%;white-space:normal}.confirm-actions{display:flex;flex-direction:row;align-items:center;justify-content:space-between;gap:1.4rem;margin-top:1.6rem;width:100%}.confirm-actions button{height:3.3rem;border-radius:2.4rem;font-size:1.1rem;font-weight:800;cursor:pointer;white-space:nowrap}.confirm-cancel{width:10.1rem;background:#f7f7f7;border:none;color:#231916}.confirm-cancel:hover{opacity:.8}.confirm-enter{width:10.1rem;border:none;background:#56b7ff;color:#fff}.confirm-enter:hover{opacity:.8}
 
-
-.bottom-item.share-disabled{color:var(--b4);cursor:default}
-.bottom-item.share-disabled svg.nav-svg-icon{color:var(--b4)}
-.bottom-item.share-disabled span{color:var(--b4)!important}
-.bottom-item.share-enabled{color:#344;cursor:pointer}
-.distribution-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:85;display:none;align-items:center;justify-content:center;padding:0 2.4rem}.distribution-backdrop.show{display:flex}
-.DoubleButton_modalContent__yOrnl{background:var(--w1);position:relative;border-radius:1.2rem;width:100%;max-width:40rem;display:flex;flex-direction:column;gap:3.2rem;justify-content:center;align-items:center;padding:7.2rem 1.6rem 4.8rem;box-shadow:0 1.2rem 3.6rem rgba(0,0,0,.25)}
-.DoubleButton_closeButton__WXuG5{position:absolute;top:1.6rem;right:1.6rem;width:2.4rem;height:2.4rem;cursor:pointer;color:var(--b1);display:flex;align-items:center;justify-content:center}
-.distribution-title{display:flex;flex-direction:column;align-items:center}.distribution-title span{font-weight:700;line-height:175%;font-size:2rem;text-align:center;color:var(--b1)}
-.distribution-message{color:var(--b3);font-weight:600;line-height:175%;font-size:1.2rem;text-align:center;white-space:nowrap}
-.distribution-actions{display:flex;gap:2.2rem}.distribution-actions button{width:14.4rem;height:4.6rem;border-radius:.8rem;border:none;margin:0;padding:0;box-shadow:none;font-size:1.4rem;font-weight:700;pointer-events:none;cursor:default}.distribution-no{background:#f7f7f7;color:var(--b1)}.distribution-yes{background:linear-gradient(90deg,#7bc3e2,#489afb);color:var(--w1)}
-
 .toast{position:fixed;left:50%;bottom:9.4rem;transform:translateX(-50%) translateY(1rem);background:rgba(0,0,0,.82);color:#fff;border-radius:999px;padding:.9rem 1.4rem;font-size:1.3rem;font-weight:700;opacity:0;pointer-events:none;transition:.22s;z-index:40}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-@media(max-width:390px){.stamp{transform:scale(.68)} .ticket-section{padding-left:3.4rem;padding-right:3.4rem}.event-name{font-size:1.85rem}.number{font-size:2rem}.bottom{gap:1rem;padding-left:1.4rem;padding-right:1.2rem}.bottom-left{gap:.8rem}.bottom-item{width:4.4rem;font-size:1.05rem}.slider-text{font-size:1.32rem}.small{font-size:1rem}}
+@media(max-width:390px){.header .actions{gap:1rem}.header{padding-left:1.6rem;padding-right:1.6rem}.ticket-section{padding-left:3.4rem;padding-right:3.4rem}.event-name{font-size:1.85rem}.number{font-size:2rem}.bottom{gap:1rem;padding-left:1.4rem;padding-right:1.2rem}.bottom-left{gap:.8rem}.bottom-item{width:4.4rem;font-size:1.05rem}.slider-text{font-size:1.32rem}.small{font-size:1rem}}
 @media(max-width:340px){.ticket-section{padding-left:2.6rem;padding-right:2.6rem}.details{padding:1.4rem 1.6rem}.date{font-size:2.5rem}.number{padding:1rem .65rem}}
+
+/* FINAL_STAMP_FIX_START */
+.stamp{
+  width:16.6rem !important;
+  height:16.6rem !important;
+  right:.3rem !important;
+  bottom:.3rem !important;
+  overflow:visible !important;
+  transform:none !important;
+  background:rgba(255,255,255,.92) !important;
+}
+.stamp .top,
+.stamp .stamp-bottom{
+  position:absolute !important;
+  left:50% !important;
+  right:auto !important;
+  width:max-content !important;
+  min-width:0 !important;
+  height:1.8rem !important;
+  margin:0 !important;
+  padding:0 !important;
+  background:transparent !important;
+  color:#ff0000 !important;
+  font-size:1.7rem !important;
+  font-weight:700 !important;
+  line-height:1.8rem !important;
+  text-align:center !important;
+  white-space:nowrap !important;
+  z-index:20 !important;
+}
+.stamp .top{
+  top:1.15rem !important;
+  transform:translateX(-50%) !important;
+}
+.stamp .stamp-bottom{
+  bottom:1.15rem !important;
+  transform:translateX(-50%) rotate(180deg) !important;
+  transform-origin:center center !important;
+}
+.stamp .time{
+  background:transparent !important;
+  color:#ff0000 !important;
+  font-size:2.8rem !important;
+  font-weight:700 !important;
+  text-align:center !important;
+  z-index:10 !important;
+}
+.stamp .c1{width:16.6rem !important;height:16.6rem !important;box-shadow:0 0 0 2px #ff0000 !important;border:0 !important;}
+.stamp .c2{display:block !important;width:15.8rem !important;height:15.8rem !important;box-shadow:0 0 0 1px #ff0000 !important;border:0 !important;}
+.stamp .c3{width:10.2rem !important;height:10.2rem !important;box-shadow:0 0 0 3px #ff0000 !important;border:0 !important;}
+.stamp .c4{width:9.4rem !important;height:9.4rem !important;box-shadow:0 0 0 1px #ff0000 !important;border:0 !important;}
+/* FINAL_STAMP_FIX_END */
+
 </style>
 </head>
 <body>
@@ -150,7 +191,7 @@ button{font-family:inherit}
     </div>
     
   </section>
-  <nav class="bottom"><div class="bottom-left"><button class="bottom-item" id="shareBtn" type="button"><svg class="nav-svg-icon share-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 27 22" aria-hidden="true"><path fill="currentColor" d="M6.781 1.35 1.367 6.895a1.25 1.25 0 0 0-.387.913q0 .548.344.902.355.345.903.344.526 0 .88-.355L5.3 6.41l1.235-1.418-.086 2.16V20.3q0 .548.355.902.365.366.913.365.548 0 .902-.365.355-.354.355-.902V7.15l-.065-2.159 1.214 1.418 2.202 2.288q.345.355.881.355.537 0 .88-.344.355-.354.355-.902 0-.527-.375-.913L8.65 1.35a1.23 1.23 0 0 0-.934-.42q-.548 0-.935.42M21.22 21.16l5.403-5.555q.387-.386.387-.913 0-.558-.355-.902-.343-.344-.891-.344-.527 0-.87.355L22.7 16.078l-1.235 1.429.075-2.16V2.2q0-.548-.355-.902a1.2 1.2 0 0 0-.902-.365q-.548 0-.913.365-.354.354-.354.902v13.149l.085 2.159-1.224-1.429-2.202-2.277a1.18 1.18 0 0 0-.87-.355q-.548 0-.903.344-.354.345-.354.902 0 .527.397.913l5.404 5.554q.386.408.923.408.548.012.946-.408"></path></svg><span>分配する</span></button><button class="bottom-item" id="detailBtn" type="button"><svg class="nav-svg-icon detail-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.5 10.833v5a1.666 1.666 0 0 1-1.667 1.667H4.167A1.667 1.667 0 0 1 2.5 15.833V4.167A1.667 1.667 0 0 1 4.167 2.5h5M17.5 2.5 10 10M12.5 2.5h5v5"></path></svg><span>詳細</span></button></div><button class="enter-btn" id="enterBtn" type="button"><div class="slider-text" id="sliderText">入場する<span class="small">（係員以外操作無効）</span></div></button></nav>
+  <nav class="bottom"><div class="bottom-left"><button class="bottom-item" type="button" onclick="showToast('デモのため分配できません')"><svg class="nav-svg-icon share-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 27 22" aria-hidden="true"><path fill="currentColor" d="M6.781 1.35 1.367 6.895a1.25 1.25 0 0 0-.387.913q0 .548.344.902.355.345.903.344.526 0 .88-.355L5.3 6.41l1.235-1.418-.086 2.16V20.3q0 .548.355.902.365.366.913.365.548 0 .902-.365.355-.354.355-.902V7.15l-.065-2.159 1.214 1.418 2.202 2.288q.345.355.881.355.537 0 .88-.344.355-.354.355-.902 0-.527-.375-.913L8.65 1.35a1.23 1.23 0 0 0-.934-.42q-.548 0-.935.42M21.22 21.16l5.403-5.555q.387-.386.387-.913 0-.558-.355-.902-.343-.344-.891-.344-.527 0-.87.355L22.7 16.078l-1.235 1.429.075-2.16V2.2q0-.548-.355-.902a1.2 1.2 0 0 0-.902-.365q-.548 0-.913.365-.354.354-.354.902v13.149l.085 2.159-1.224-1.429-2.202-2.277a1.18 1.18 0 0 0-.87-.355q-.548 0-.903.344-.354.345-.354.902 0 .527.397.913l5.404 5.554q.386.408.923.408.548.012.946-.408"></path></svg><span>分配する</span></button><button class="bottom-item" id="detailBtn" type="button"><svg class="nav-svg-icon detail-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.5 10.833v5a1.666 1.666 0 0 1-1.667 1.667H4.167A1.667 1.667 0 0 1 2.5 15.833V4.167A1.667 1.667 0 0 1 4.167 2.5h5M17.5 2.5 10 10M12.5 2.5h5v5"></path></svg><span>詳細</span></button></div><button class="enter-btn" id="enterBtn" type="button"><div class="slider-text" id="sliderText">入場する<span class="small">（係員以外操作無効）</span></div></button></nav>
   <div class="confirm-backdrop" id="confirmBackdrop" aria-hidden="true">
     <div class="EnterModal_modalContent__wIYXm" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
       <button class="EnterModal_closeButton__8mpTx" id="confirmClose" type="button" aria-label="とじる">×</button>
@@ -162,22 +203,6 @@ button{font-family:inherit}
       <div class="confirm-actions">
         <button class="confirm-cancel" id="confirmCancel" type="button">キャンセル</button>
         <button class="confirm-enter" id="confirmEnter" type="button">入場する</button>
-      </div>
-    </div>
-  </div>
-  <div class="distribution-backdrop" id="distributionBackdrop" aria-hidden="true">
-    <div class="DoubleButton_modalContent__yOrnl" role="dialog" aria-modal="true" aria-labelledby="distributionTitle">
-      <span class="DoubleButton_closeButton__WXuG5" id="distributionClose" aria-label="閉じる">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" aria-hidden="true"><path fill="currentColor" d="M4.43 19.57q.28.28.665.383.396.095.78 0 .397-.105.676-.372L12 14.12l5.463 5.448q.279.291.652.384.384.095.768 0 .396-.104.676-.395.303-.28.396-.664a1.66 1.66 0 0 0 0-.78 1.34 1.34 0 0 0-.384-.663l-5.44-5.46 5.44-5.448q.291-.279.384-.663a1.6 1.6 0 0 0 0-.768 1.3 1.3 0 0 0-.396-.675 1.34 1.34 0 0 0-.675-.385 1.44 1.44 0 0 0-.77 0 1.4 1.4 0 0 0-.651.373L12 9.873l-5.45-5.46a1.43 1.43 0 0 0-.676-.36 1.5 1.5 0 0 0-.78 0 1.4 1.4 0 0 0-.664.372 1.4 1.4 0 0 0-.384.687 1.6 1.6 0 0 0 0 .768q.093.384.372.663l5.463 5.448-5.463 5.46q-.279.279-.372.663a1.66 1.66 0 0 0 0 .78q.093.384.384.675"></path></svg>
-      </span>
-      <div class="distribution-title" id="distributionTitle">
-        <span>既に発行済みの分配URLが</span>
-        <span>リセットされますがよろしいですか？</span>
-      </div>
-      <span class="distribution-message">今までにご家族・ご友人に送ったURLは無効となります。</span>
-      <div class="distribution-actions">
-        <button class="distribution-no" type="button" tabindex="-1">いいえ</button>
-        <button class="distribution-yes" type="button" tabindex="-1">はい</button>
       </div>
     </div>
   </div>
@@ -193,7 +218,6 @@ const data = {
   openTime: params.get('openTime') || '9:00', startTime: params.get('startTime') || '9:30',
   name: params.get('name') || 'デモ太郎', favorite: params.get('favorite') || 'ハニースパイスRe.',
   ticketName: params.get('ticketName') || '【DAY1】VIPチケット先行抽選', ticketType: params.get('ticketType') || 'SA-437',
-  shareEnabled: params.get('shareEnabled') !== 'false',
   detailUrl: params.get('detailUrl') || '',
   bodyColor: params.get('bodyColor') || '#f9d1b7', ticketColor: params.get('ticketColor') || '#ec660f'
 };
@@ -253,36 +277,6 @@ if(detailBtn){
     location.href=url;
   });
 }
-
-
-const shareBtn=document.getElementById('shareBtn');
-const distributionBackdrop=document.getElementById('distributionBackdrop');
-const distributionClose=document.getElementById('distributionClose');
-function openDistributionModal(){
-  if(!distributionBackdrop) return;
-  distributionBackdrop.classList.add('show');
-  distributionBackdrop.setAttribute('aria-hidden','false');
-}
-function closeDistributionModal(){
-  if(!distributionBackdrop) return;
-  distributionBackdrop.classList.remove('show');
-  distributionBackdrop.setAttribute('aria-hidden','true');
-}
-if(shareBtn){
-  const shareLabel=shareBtn.querySelector('span');
-  if(data.shareEnabled){
-    shareBtn.classList.add('share-enabled');
-    shareBtn.classList.remove('share-disabled');
-    if(shareLabel){shareLabel.style.setProperty('--color','var(--b1)');}
-    shareBtn.addEventListener('click',openDistributionModal);
-  }else{
-    shareBtn.classList.add('share-disabled');
-    shareBtn.classList.remove('share-enabled');
-    if(shareLabel){shareLabel.style.setProperty('--color','var(--b4)');}
-  }
-}
-if(distributionClose){distributionClose.addEventListener('click',closeDistributionModal);}
-if(distributionBackdrop){distributionBackdrop.addEventListener('click',(e)=>{if(e.target===distributionBackdrop)closeDistributionModal();});}
 
 function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(window.__toastTimer);window.__toastTimer=setTimeout(()=>t.classList.remove('show'),1600)}
 </script>
