@@ -356,8 +356,10 @@ button{font-family:inherit}
 </main>
 <script>
 const params = new URLSearchParams(location.search);
+const storedEventImage = (()=>{ try{return localStorage.getItem('eventImage') || '';}catch(e){return '';} })();
+const useUploadedEventImage = params.get('eventImageMode') === 'upload' && storedEventImage;
 const data = {
-  image: params.get('image') || 'https://storage.googleapis.com/playyte-ticket-prod_event/oSKEcfB0O9Zh8m0VSwuV_895248_1782217279208.webp',
+  image: useUploadedEventImage || params.get('image') || 'https://storage.googleapis.com/playyte-ticket-prod_event/oSKEcfB0O9Zh8m0VSwuV_895248_1782217279208.webp',
   qrImage: params.get('qrImage') || '',
   title: params.get('title') || 'SPARK 2026 渋谷納涼祭',
   venue: params.get('venue') || 'ベルサール渋谷ガーデン / Spotify O-nest / SHIBUYA DESEO / SHIBUYA THE GAME / チェルシーホテル',
@@ -375,9 +377,21 @@ const scrollVenue = params.get('scrollVenue') === 'true';
 const scrollTicket = params.get('scrollTicket') === 'true';
 document.documentElement.style.setProperty('--bg', data.bodyColor);
 document.documentElement.style.setProperty('--accent', data.ticketColor);
-['title1','title2'].forEach(id=>document.getElementById(id).textContent=data.title);
-['venue1','venue2'].forEach(id=>document.getElementById(id).textContent=data.venue);
-document.getElementById('date').textContent=data.date; document.getElementById('weekday').textContent=data.weekday; document.getElementById('openTime').textContent=data.openTime; document.getElementById('startTime').textContent=data.startTime; document.getElementById('buyerName').textContent=data.name; document.getElementById('favorite').textContent=data.favorite; document.getElementById('ticketName1').textContent=data.ticketName; document.getElementById('ticketName2').textContent=data.ticketName; const refNumber=document.getElementById('referenceNumber-3NkM9bH59X6yCnowSBfX'); if(refNumber){refNumber.textContent=data.ticketType || 'SA-437';}
+function setText(id, value){
+  const el = document.getElementById(id);
+  if(el) el.textContent = value;
+}
+['title1','title2'].forEach(id=>setText(id, data.title));
+['venue1','venue2'].forEach(id=>setText(id, data.venue));
+setText('date', data.date);
+setText('weekday', data.weekday);
+setText('openTime', data.openTime);
+setText('startTime', data.startTime);
+setText('buyerName', data.name);
+setText('favorite', data.favorite);
+setText('ticketName1', data.ticketName);
+setText('ticketName2', data.ticketName);
+const refNumber=document.getElementById('referenceNumber-3NkM9bH59X6yCnowSBfX'); if(refNumber){refNumber.textContent=data.ticketType || 'SA-437';}
 
 function setMarqueeEnabled(ids, enabled){
   ids.forEach((id, index)=>{

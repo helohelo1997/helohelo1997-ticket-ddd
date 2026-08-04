@@ -36,7 +36,11 @@
 <body>
   <main class="wrap">
     <h1>ダイブチケット作成</h1><p class="lead">入力内容を5.htmlへ渡して、スマホ表示に近いチケット画面を表示します。</p>
-    <label>イベント画像URLまたは画像ファイル名</label><input id="image" value="https://storage.googleapis.com/playyte-ticket-prod_event/oSKEcfB0O9Zh8m0VSwuV_895248_1782217279208.webp">
+    <label>イベント画像URL</label><input id="image" value="https://storage.googleapis.com/playyte-ticket-prod_event/oSKEcfB0O9Zh8m0VSwuV_895248_1782217279208.webp">
+    <div id="eventPasteArea" class="paste-area" tabindex="0">イベント画像をここに貼り付け<br>または下のボタンから画像を選択</div>
+    <input id="eventFile" type="file" accept="image/*">
+    <input id="eventImageData" type="hidden" value="">
+    <p class="file-help">※イベント画像はURL入力または画像選択のどちらでも利用できます。画像を選択した場合は画像選択が優先されます。</p>
 
     <label>QRコード画像</label>
     <div id="qrPasteArea" class="paste-area" tabindex="0">QRコード画像をここに貼り付け<br>または下のボタンから画像を選択</div>
@@ -112,6 +116,24 @@ function setTicketColor(color){
 const qrPasteArea = document.getElementById('qrPasteArea');
 const qrFile = document.getElementById('qrFile');
 const qrImageInput = document.getElementById('qrImage');
+const eventPasteArea = document.getElementById('eventPasteArea');
+const eventFile = document.getElementById('eventFile');
+const eventImageData = document.getElementById('eventImageData');
+function setEventImageDataUrl(dataUrl){
+  eventImageData.value = dataUrl;
+  try{ localStorage.setItem('eventImage', dataUrl); }catch(e){ console.warn('イベント画像の保存に失敗しました', e); }
+  eventPasteArea.classList.add('has-image');
+  eventPasteArea.innerHTML = '<img src="' + dataUrl + '" alt="イベント画像プレビュー">';
+}
+function readEventFile(file){
+  if(!file || !file.type || !file.type.startsWith('image/')) return;
+  const reader = new FileReader();
+  reader.onload = () => setEventImageDataUrl(reader.result);
+  reader.readAsDataURL(file);
+}
+if(eventFile){
+  eventFile.addEventListener('change', (e) => readEventFile(e.target.files && e.target.files[0]));
+}
 function setQrImageDataUrl(dataUrl){
   qrImageInput.value = dataUrl;
   try{ localStorage.setItem('ticketQrImage', dataUrl); }catch(e){ console.warn('QR画像の保存に失敗しました', e); }
@@ -132,7 +154,12 @@ document.addEventListener('paste', (e) => {
   if(!items) return;
   for(const item of items){
     if(item.type && item.type.startsWith('image/')){
-      readQrFile(item.getAsFile());
+      const file = item.getAsFile();
+      if(document.activeElement === qrPasteArea){
+        readQrFile(file);
+      }else{
+        readEventFile(file);
+      }
       e.preventDefault();
       break;
     }
@@ -144,6 +171,13 @@ function openPreview(){
   const ids=["image","title","venue","date","weekday","openTime","startTime","name","favorite","ticketName","ticketType","shareEnabled","detailUrl","bodyColor","ticketColor"];
   const params=new URLSearchParams();
   ids.forEach(id=>params.set(id,document.getElementById(id).value));
+  if(eventImageData && eventImageData.value){
+    try{ localStorage.setItem('eventImage', eventImageData.value); }catch(e){ console.warn('イベント画像の保存に失敗しました', e); }
+    params.set('eventImageMode','upload');
+  }else{
+    try{ localStorage.removeItem('eventImage'); }catch(e){}
+    params.set('eventImageMode','url');
+  }
   params.set("scrollTitle", document.getElementById("scrollTitle").checked ? "true" : "false");
   params.set("scrollVenue", document.getElementById("scrollVenue").checked ? "true" : "false");
   params.set("scrollTicket", document.getElementById("scrollTicket").checked ? "true" : "false");
