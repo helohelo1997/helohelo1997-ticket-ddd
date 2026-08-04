@@ -368,6 +368,8 @@ const data = {
   detailUrl: params.get('detailUrl') || '',
   bodyColor: params.get('bodyColor') || '#f9d1b7', ticketColor: params.get('ticketColor') || '#ec660f'
 };
+const storedQrImage = (()=>{ try{return localStorage.getItem('ticketQrImage') || '';}catch(e){return '';} })();
+const initialQrImage = data.qrImage || storedQrImage;
 const scrollTitle = params.get('scrollTitle') === 'true';
 const scrollVenue = params.get('scrollVenue') === 'true';
 const scrollTicket = params.get('scrollTicket') === 'true';
@@ -414,11 +416,11 @@ function setEventImage(){
   }
 }
 function setQrImage(){
-  if(data.qrImage.trim()){
+  if(initialQrImage.trim()){
     imgMain.textContent='';
     imgMain.classList.remove('noimage');
     imgMain.classList.add('qr-mode');
-    imgMain.style.backgroundImage=`url('${data.qrImage}')`;
+    imgMain.style.backgroundImage=`url('${initialQrImage}')`;
     imgMain.style.backgroundSize='contain';
     imgMain.style.backgroundRepeat='no-repeat';
     imgMain.style.backgroundPosition='center';

@@ -37,11 +37,12 @@
   <main class="wrap">
     <h1>ダイブチケット作成</h1><p class="lead">入力内容を5.htmlへ渡して、スマホ表示に近いチケット画面を表示します。</p>
     <label>イベント画像URLまたは画像ファイル名</label><input id="image" value="https://storage.googleapis.com/playyte-ticket-prod_event/oSKEcfB0O9Zh8m0VSwuV_895248_1782217279208.webp">
+
     <label>QRコード画像</label>
     <div id="qrPasteArea" class="paste-area" tabindex="0">QRコード画像をここに貼り付け<br>または下のボタンから画像を選択</div>
     <input id="qrFile" type="file" accept="image/*">
     <input id="qrImage" type="hidden" value="">
-    <p class="file-help">※PCはQR画像をコピーしてこの画面で Ctrl+V。iPhoneは「ファイルを選択」からQR画像を選んでください。</p>
+    <p class="file-help">※PCはQR画像をコピーしてこの画面で Ctrl+V。iPhoneは「ファイルを選択」からQR画像を選んでください。QR画像はURLではなく端末内に保存して5.htmlへ渡します。</p>
     <label>公演名</label><input id="title" value="SPARK 2026 渋谷納涼祭">
     <label>会場名</label><textarea id="venue">ベルサール渋谷ガーデン / Spotify O-nest / SHIBUYA DESEO / SHIBUYA THE GAME / チェルシーホテル / 渋谷Star Lounge / Studio Freedom / LIVE STAGE GUILTY / SHIBUYA FOWS</textarea>
     <div class="grid"><div><label>日付</label><input id="date" value="7.11"></div><div><label>曜日</label><input id="weekday" value="土"></div></div>
@@ -113,6 +114,7 @@ const qrFile = document.getElementById('qrFile');
 const qrImageInput = document.getElementById('qrImage');
 function setQrImageDataUrl(dataUrl){
   qrImageInput.value = dataUrl;
+  try{ localStorage.setItem('ticketQrImage', dataUrl); }catch(e){ console.warn('QR画像の保存に失敗しました', e); }
   qrPasteArea.classList.add('has-image');
   qrPasteArea.innerHTML = '<img src="' + dataUrl + '" alt="QRコード画像プレビュー">';
 }
@@ -130,8 +132,7 @@ document.addEventListener('paste', (e) => {
   if(!items) return;
   for(const item of items){
     if(item.type && item.type.startsWith('image/')){
-      const file = item.getAsFile();
-      readQrFile(file);
+      readQrFile(item.getAsFile());
       e.preventDefault();
       break;
     }
@@ -139,7 +140,8 @@ document.addEventListener('paste', (e) => {
 });
 
 function openPreview(){
-  const ids=["image","qrImage","title","venue","date","weekday","openTime","startTime","name","favorite","ticketName","ticketType","shareEnabled","detailUrl","bodyColor","ticketColor"];
+  if(!document.getElementById('qrImage').value){ try{ localStorage.removeItem('ticketQrImage'); }catch(e){} }
+  const ids=["image","title","venue","date","weekday","openTime","startTime","name","favorite","ticketName","ticketType","shareEnabled","detailUrl","bodyColor","ticketColor"];
   const params=new URLSearchParams();
   ids.forEach(id=>params.set(id,document.getElementById(id).value));
   params.set("scrollTitle", document.getElementById("scrollTitle").checked ? "true" : "false");
