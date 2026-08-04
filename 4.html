@@ -26,12 +26,22 @@
     .check-row{display:flex;align-items:center;gap:9px;margin:0;font-size:13px;font-weight:700;color:#444;line-height:1.4}
     .check-row input{width:18px;height:18px;margin:0;accent-color:#489afb;flex:0 0 auto}
     .check-help{font-size:11px;color:#777;line-height:1.5;margin:2px 0 0}
+
+    .paste-area{margin-top:8px;border:2px dashed #9ca3af;border-radius:14px;background:#f9fafb;min-height:126px;padding:14px;display:flex;align-items:center;justify-content:center;text-align:center;color:#6b7280;font-size:13px;font-weight:700;line-height:1.6;overflow:hidden}
+    .paste-area.has-image{border-color:#489afb;background:#eef6ff;padding:8px}
+    .paste-area img{display:block;max-width:100%;max-height:180px;object-fit:contain;background:#fff;border-radius:8px}
+    .file-help{font-size:11px;color:#777;line-height:1.5;margin:8px 0 0}
   </style>
 </head>
 <body>
   <main class="wrap">
     <h1>ダイブチケット作成</h1><p class="lead">入力内容を5.htmlへ渡して、スマホ表示に近いチケット画面を表示します。</p>
     <label>イベント画像URLまたは画像ファイル名</label><input id="image" value="https://storage.googleapis.com/playyte-ticket-prod_event/oSKEcfB0O9Zh8m0VSwuV_895248_1782217279208.webp">
+    <label>QRコード画像</label>
+    <div id="qrPasteArea" class="paste-area" tabindex="0">QRコード画像をここに貼り付け<br>または下のボタンから画像を選択</div>
+    <input id="qrFile" type="file" accept="image/*">
+    <input id="qrImage" type="hidden" value="">
+    <p class="file-help">※PCはQR画像をコピーしてこの画面で Ctrl+V。iPhoneは「ファイルを選択」からQR画像を選んでください。</p>
     <label>公演名</label><input id="title" value="SPARK 2026 渋谷納涼祭">
     <label>会場名</label><textarea id="venue">ベルサール渋谷ガーデン / Spotify O-nest / SHIBUYA DESEO / SHIBUYA THE GAME / チェルシーホテル / 渋谷Star Lounge / Studio Freedom / LIVE STAGE GUILTY / SHIBUYA FOWS</textarea>
     <div class="grid"><div><label>日付</label><input id="date" value="7.11"></div><div><label>曜日</label><input id="weekday" value="土"></div></div>
@@ -97,8 +107,39 @@ function setTicketColor(color){
   document.getElementById('ticketColor').value=color;
   document.getElementById('ticketColorPreview').style.background=color;
 }
+
+const qrPasteArea = document.getElementById('qrPasteArea');
+const qrFile = document.getElementById('qrFile');
+const qrImageInput = document.getElementById('qrImage');
+function setQrImageDataUrl(dataUrl){
+  qrImageInput.value = dataUrl;
+  qrPasteArea.classList.add('has-image');
+  qrPasteArea.innerHTML = '<img src="' + dataUrl + '" alt="QRコード画像プレビュー">';
+}
+function readQrFile(file){
+  if(!file || !file.type || !file.type.startsWith('image/')) return;
+  const reader = new FileReader();
+  reader.onload = () => setQrImageDataUrl(reader.result);
+  reader.readAsDataURL(file);
+}
+if(qrFile){
+  qrFile.addEventListener('change', (e) => readQrFile(e.target.files && e.target.files[0]));
+}
+document.addEventListener('paste', (e) => {
+  const items = e.clipboardData && e.clipboardData.items;
+  if(!items) return;
+  for(const item of items){
+    if(item.type && item.type.startsWith('image/')){
+      const file = item.getAsFile();
+      readQrFile(file);
+      e.preventDefault();
+      break;
+    }
+  }
+});
+
 function openPreview(){
-  const ids=["image","title","venue","date","weekday","openTime","startTime","name","favorite","ticketName","ticketType","shareEnabled","detailUrl","bodyColor","ticketColor"];
+  const ids=["image","qrImage","title","venue","date","weekday","openTime","startTime","name","favorite","ticketName","ticketType","shareEnabled","detailUrl","bodyColor","ticketColor"];
   const params=new URLSearchParams();
   ids.forEach(id=>params.set(id,document.getElementById(id).value));
   params.set("scrollTitle", document.getElementById("scrollTitle").checked ? "true" : "false");

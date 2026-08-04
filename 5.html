@@ -85,6 +85,7 @@ button{font-family:inherit}
 .image-blur{position:absolute;inset:0;background:center/cover no-repeat;filter:blur(7px);transform:scale(1.08);z-index:0}
 .image-main{position:relative;z-index:1;width:72%;height:86%;background-position:center;background-size:contain;background-repeat:no-repeat;background-color:rgba(255,255,255,.08);border-radius:.2rem;filter:drop-shadow(0 0 4px rgba(0,0,0,.4))}
 .image-main.noimage{display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#ffb37b,#f05f88,#4aa9e8);color:rgba(255,255,255,.85);font-size:3.2rem;font-weight:900;letter-spacing:.05em}
+.image-main.qr-mode{width:calc(100% - 8.2rem);height:calc(100% - 8.2rem);background-size:contain!important;background-repeat:no-repeat!important;background-position:center!important;background-color:#fff;border-radius:0;filter:none}
 .stamp{display:none;position:absolute;right:.3rem;bottom:.3rem;width:16.6rem;height:16.6rem;z-index:20;border-radius:50%;overflow:visible;pointer-events:none;background:rgba(255,255,255,.88);color:#ff0000;transform:none;transform-origin:right bottom}
 .stamp.show{display:block}
 .stamp .top,.stamp .stamp-bottom{position:absolute;color:#ff0000;background:transparent;font-size:1.7rem;font-weight:700;line-height:1.8rem;text-align:center;letter-spacing:0;z-index:10;display:block;white-space:nowrap}
@@ -357,6 +358,7 @@ button{font-family:inherit}
 const params = new URLSearchParams(location.search);
 const data = {
   image: params.get('image') || 'https://storage.googleapis.com/playyte-ticket-prod_event/oSKEcfB0O9Zh8m0VSwuV_895248_1782217279208.webp',
+  qrImage: params.get('qrImage') || '',
   title: params.get('title') || 'SPARK 2026 渋谷納涼祭',
   venue: params.get('venue') || 'ベルサール渋谷ガーデン / Spotify O-nest / SHIBUYA DESEO / SHIBUYA THE GAME / チェルシーホテル',
   date: params.get('date') || '7.11', weekday: params.get('weekday') || '土',
@@ -396,13 +398,44 @@ setMarqueeEnabled(['venue1','venue2'], scrollVenue);
 setMarqueeEnabled(['ticketName1','ticketName2'], scrollTicket);
 
 const imgMain=document.getElementById('imageMain'), imgBlur=document.getElementById('imageBlur');
-if(data.image.trim()) { imgMain.textContent=''; imgMain.classList.remove('noimage'); imgMain.style.backgroundImage=`url('${data.image}')`; imgMain.style.backgroundSize='contain'; imgMain.style.backgroundRepeat='no-repeat'; imgMain.style.backgroundPosition='center'; imgBlur.style.backgroundImage=`url('${data.image}')`; } else { imgMain.classList.add('noimage'); imgMain.textContent='DEMO'; }
+function setEventImage(){
+  if(data.image.trim()){
+    imgMain.textContent='';
+    imgMain.classList.remove('noimage','qr-mode');
+    imgMain.style.backgroundImage=`url('${data.image}')`;
+    imgMain.style.backgroundSize='contain';
+    imgMain.style.backgroundRepeat='no-repeat';
+    imgMain.style.backgroundPosition='center';
+  }else{
+    imgMain.classList.remove('qr-mode');
+    imgMain.classList.add('noimage');
+    imgMain.style.backgroundImage='';
+    imgMain.textContent='DEMO';
+  }
+}
+function setQrImage(){
+  if(data.qrImage.trim()){
+    imgMain.textContent='';
+    imgMain.classList.remove('noimage');
+    imgMain.classList.add('qr-mode');
+    imgMain.style.backgroundImage=`url('${data.qrImage}')`;
+    imgMain.style.backgroundSize='contain';
+    imgMain.style.backgroundRepeat='no-repeat';
+    imgMain.style.backgroundPosition='center';
+  }else{
+    setEventImage();
+  }
+}
+if(data.image.trim()){
+  imgBlur.style.backgroundImage=`url('${data.image}')`;
+}
+setQrImage();
 const enterBtn=document.getElementById('enterBtn'), sliderText=document.getElementById('sliderText'), stamp=document.getElementById('stamp'), stampTime=document.getElementById('stampTime');
 const confirmBackdrop=document.getElementById('confirmBackdrop'), confirmCancel=document.getElementById('confirmCancel'), confirmEnter=document.getElementById('confirmEnter'), confirmClose=document.getElementById('confirmClose');
 let done=false;
 function openConfirm(){if(done)return;confirmBackdrop.classList.add('show');confirmBackdrop.setAttribute('aria-hidden','false')}
 function closeConfirm(){confirmBackdrop.classList.remove('show');confirmBackdrop.setAttribute('aria-hidden','true')}
-function complete(){done=true;closeConfirm();const now=new Date();stampTime.textContent=String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');stamp.classList.add('show');enterBtn.classList.add('done');sliderText.innerHTML='<div class="TicketAction_statusPill__6TSMl"><span class="Typography_root__9AOcJ TicketAction_statusPillText__awXgI" style="--color: var(--w1); --bg-color: var(--undefined); --line-num: 1; font-size: 1.6rem; font-weight: 600;">ボタンタップにより入場済</span></div>';showToast('入場済にしました')}
+function complete(){done=true;closeConfirm();const now=new Date();stampTime.textContent=String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');stamp.classList.add('show');setEventImage();enterBtn.classList.add('done');sliderText.innerHTML='<div class="TicketAction_statusPill__6TSMl"><span class="Typography_root__9AOcJ TicketAction_statusPillText__awXgI" style="--color: var(--w1); --bg-color: var(--undefined); --line-num: 1; font-size: 1.6rem; font-weight: 600;">ボタンタップにより入場済</span></div>';showToast('入場済にしました')}
 enterBtn.addEventListener('click',openConfirm);
 confirmCancel.addEventListener('click',closeConfirm);
 confirmClose.addEventListener('click',closeConfirm);
