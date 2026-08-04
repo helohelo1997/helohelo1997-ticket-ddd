@@ -437,7 +437,7 @@ const confirmBackdrop=document.getElementById('confirmBackdrop'), confirmCancel=
 let done=false;
 function openConfirm(){if(done)return;confirmBackdrop.classList.add('show');confirmBackdrop.setAttribute('aria-hidden','false')}
 function closeConfirm(){confirmBackdrop.classList.remove('show');confirmBackdrop.setAttribute('aria-hidden','true')}
-function complete(){done=true;closeConfirm();const now=new Date();stampTime.textContent=String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');stamp.classList.add('show');setEventImage();enterBtn.classList.add('done');sliderText.innerHTML='<div class="TicketAction_statusPill__6TSMl"><span class="Typography_root__9AOcJ TicketAction_statusPillText__awXgI" style="--color: var(--w1); --bg-color: var(--undefined); --line-num: 1; font-size: 1.6rem; font-weight: 600;">ボタンタップにより入場済</span></div>';showToast('入場済にしました')}
+function complete(){done=true;closeConfirm();const now=new Date();stampTime.textContent=String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');stamp.classList.add('show');setEventImage();enterBtn.classList.add('done');sliderText.innerHTML='<div class="TicketAction_statusPill__6TSMl"><span class="Typography_root__9AOcJ TicketAction_statusPillText__awXgI" style="--color: var(--w1); --bg-color: var(--undefined); --line-num: 1; font-size: 1.6rem; font-weight: 600;">ボタンタップにより入場済</span></div>'; }
 enterBtn.addEventListener('click',openConfirm);
 confirmCancel.addEventListener('click',closeConfirm);
 confirmClose.addEventListener('click',closeConfirm);
