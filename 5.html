@@ -1,4 +1,4 @@
-<!doctype html>
+f<!doctype html>
 <html lang="ja">
 <head>
 <meta charset="utf-8">
@@ -152,7 +152,7 @@ button{font-family:inherit}
   bottom:.3rem !important;
   overflow:visible !important;
   transform:none !important;
-  background:rgba(255,255,255,.62) !important;
+  background:rgba(255,255,255,.80) !important;
 }
 .stamp .top,
 .stamp .stamp-bottom{
@@ -299,6 +299,29 @@ button{font-family:inherit}
 }
 /* DISTRIBUTION_MODAL_END */
 
+
+/* EVENT_IMAGE_VERTICAL_FULL_START */
+.image-main:not(.qr-mode){
+  width:100%;
+  height:100%;
+  background-size:auto 100%;
+  background-position:center;
+  background-repeat:no-repeat;
+  border-radius:0;
+}
+/* EVENT_IMAGE_VERTICAL_FULL_END */
+
+/* ENTERED_BOTTOM_LAYOUT_START */
+.bottom.entered #shareBtn{display:none!important;}
+.bottom.entered .bottom-left{gap:0;}
+.bottom.entered .enter-btn{width:auto;flex:1;}
+/* ENTERED_BOTTOM_LAYOUT_END */
+
+/* TICKET_HEIGHT_COMPACT_START */
+.image-area{
+  aspect-ratio:1 / .90;
+}
+/* TICKET_HEIGHT_COMPACT_END */
 </style>
 </head>
 <body>
@@ -419,7 +442,7 @@ function setEventImage(){
     imgMain.textContent='';
     imgMain.classList.remove('noimage','qr-mode');
     imgMain.style.backgroundImage=`url('${data.image}')`;
-    imgMain.style.backgroundSize='contain';
+    imgMain.style.backgroundSize='auto 100%';
     imgMain.style.backgroundRepeat='no-repeat';
     imgMain.style.backgroundPosition='center';
   }else{
@@ -451,7 +474,7 @@ const confirmBackdrop=document.getElementById('confirmBackdrop'), confirmCancel=
 let done=false;
 function openConfirm(){if(done)return;confirmBackdrop.classList.add('show');confirmBackdrop.setAttribute('aria-hidden','false')}
 function closeConfirm(){confirmBackdrop.classList.remove('show');confirmBackdrop.setAttribute('aria-hidden','true')}
-function complete(){done=true;closeConfirm();const now=new Date();stampTime.textContent=String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');stamp.classList.add('show');setEventImage();enterBtn.classList.add('done');sliderText.innerHTML='<div class="TicketAction_statusPill__6TSMl"><span class="Typography_root__9AOcJ TicketAction_statusPillText__awXgI" style="--color: var(--w1); --bg-color: var(--undefined); --line-num: 1; font-size: 1.6rem; font-weight: 600;">ボタンタップにより入場済</span></div>'; }
+function complete(){done=true;closeConfirm();const now=new Date();stampTime.textContent=String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');stamp.classList.add('show');setEventImage();enterBtn.classList.add('done');document.querySelector('.bottom')?.classList.add('entered');sliderText.innerHTML='<div class="TicketAction_statusPill__6TSMl"><span class="Typography_root__9AOcJ TicketAction_statusPillText__awXgI" style="--color: var(--w1); --bg-color: var(--undefined); --line-num: 1; font-size: 1.6rem; font-weight: 600;">ボタンタップにより入場済</span></div>'; }
 enterBtn.addEventListener('click',openConfirm);
 confirmCancel.addEventListener('click',closeConfirm);
 confirmClose.addEventListener('click',closeConfirm);
