@@ -349,6 +349,35 @@ button{font-family:inherit}
   max-width:33rem !important;
 }
 /* TICKET_NARROWER_END */
+
+/* REALISTIC_COMPACT_315_START */
+.ticket-section{
+  padding-left:2.2rem !important;
+  padding-right:2.2rem !important;
+}
+.ticket{
+  max-width:31.5rem !important;
+}
+.image-area{
+  aspect-ratio:1 / .88 !important;
+}
+.details{
+  padding:1.3rem 1.6rem !important;
+  gap:1.4rem !important;
+}
+/* REALISTIC_COMPACT_315_END */
+
+/* SHARE_DISABLED_STATE_START */
+#shareBtn.share-disabled{
+  color:#b8b8b8 !important;
+  cursor:default !important;
+  pointer-events:none !important;
+  opacity:1 !important;
+}
+#shareBtn.share-disabled svg.nav-svg-icon{
+  color:#b8b8b8 !important;
+}
+/* SHARE_DISABLED_STATE_END */
 </style>
 </head>
 <body>
@@ -418,6 +447,7 @@ const data = {
   name: params.get('name') || 'デモ太郎', favorite: params.get('favorite') || 'ハニースパイスRe.',
   ticketName: params.get('ticketName') || '【DAY1】VIPチケット先行抽選', ticketType: params.get('ticketType') || 'SA-437',
   detailUrl: params.get('detailUrl') || '',
+  shareEnabled: params.get('shareEnabled') !== 'false',
   bodyColor: params.get('bodyColor') || '#f9d1b7', ticketColor: params.get('ticketColor') || '#ec660f'
 };
 const storedQrImage = (()=>{ try{return localStorage.getItem('ticketQrImage') || '';}catch(e){return '';} })();
@@ -513,8 +543,13 @@ document.addEventListener('keydown',(e)=>{if(e.key==='Escape')closeConfirm()});
 const shareBtn=document.getElementById('shareBtn');
 const distributionBackdrop=document.getElementById('distributionBackdrop');
 const distributionClose=document.getElementById('distributionClose');
+if(shareBtn && !data.shareEnabled){
+  shareBtn.classList.add('share-disabled');
+  shareBtn.disabled=true;
+  shareBtn.setAttribute('aria-disabled','true');
+}
 function openDistributionModal(){
-  if(!distributionBackdrop)return;
+  if(!data.shareEnabled || !distributionBackdrop)return;
   distributionBackdrop.classList.add('show');
   distributionBackdrop.setAttribute('aria-hidden','false');
 }
