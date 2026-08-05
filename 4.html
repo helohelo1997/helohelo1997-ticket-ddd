@@ -186,13 +186,17 @@ function openPreview(){
     return normalized;
   }
   ids.forEach(id=>params.set(id,normalizeParamValue(document.getElementById(id).value)));
+  // 選択・貼り付けした画像もURLへ含める。受取側はlocalStorage不要。
   if(eventImageData && eventImageData.value){
-    try{ localStorage.setItem('eventImage', eventImageData.value); }catch(e){ console.warn('イベント画像の保存に失敗しました', e); }
-    params.set('eventImageMode','upload');
+    params.set('eventImage', eventImageData.value);
+    params.set('eventImageMode','urlData');
   }else{
-    try{ localStorage.removeItem('eventImage'); }catch(e){}
+    params.delete('eventImage');
     params.set('eventImageMode','url');
   }
+  const qrData = document.getElementById('qrImage').value;
+  if(qrData){ params.set('qrImage', qrData); }
+  else{ params.delete('qrImage'); }
   params.set("scrollTitle", document.getElementById("scrollTitle").checked ? "true" : "false");
   params.set("scrollVenue", document.getElementById("scrollVenue").checked ? "true" : "false");
   params.set("scrollTicket", document.getElementById("scrollTicket").checked ? "true" : "false");
