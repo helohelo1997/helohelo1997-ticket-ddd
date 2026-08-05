@@ -523,28 +523,23 @@ button{font-family:inherit}
 </main>
 <script>
 const params = new URLSearchParams(location.search);
-function safeDecode(value){
-  if(!value) return '';
-  let decoded=String(value);
-  for(let i=0;i<3;i++){
-    try{const next=decodeURIComponent(decoded);if(next===decoded)break;decoded=next;}catch(e){break;}
-  }
-  return decoded;
-}
+const storedEventImage = (()=>{ try{return localStorage.getItem('eventImage') || '';}catch(e){return '';} })();
+const useUploadedEventImage = params.get('eventImageMode') === 'upload' && storedEventImage;
 const data = {
-  image: safeDecode(params.get('eventImage')) || safeDecode(params.get('image')) || 'https://storage.googleapis.com/playyte-ticket-prod_event/oSKEcfB0O9Zh8m0VSwuV_895248_1782217279208.webp',
-  qrImage: safeDecode(params.get('qrImage')) || '',
-  title: safeDecode(params.get('title')) || 'SPARK 2026 渋谷納涼祭',
-  venue: safeDecode(params.get('venue')) || 'ベルサール渋谷ガーデン / Spotify O-nest / SHIBUYA DESEO / SHIBUYA THE GAME / チェルシーホテル',
-  date: safeDecode(params.get('date')) || '7.11', weekday: safeDecode(params.get('weekday')) || '土',
-  openTime: safeDecode(params.get('openTime')) || '9:00', startTime: safeDecode(params.get('startTime')) || '9:30',
-  name: safeDecode(params.get('name')) || 'デモ太郎', favorite: safeDecode(params.get('favorite')) || 'ハニースパイスRe.',
-  ticketName: safeDecode(params.get('ticketName')) || '【DAY1】VIPチケット先行抽選', ticketType: safeDecode(params.get('ticketType')) || 'SA-437',
-  detailUrl: safeDecode(params.get('detailUrl')) || '',
+  image: useUploadedEventImage || params.get('image') || 'https://storage.googleapis.com/playyte-ticket-prod_event/oSKEcfB0O9Zh8m0VSwuV_895248_1782217279208.webp',
+  qrImage: params.get('qrImage') || '',
+  title: params.get('title') || 'SPARK 2026 渋谷納涼祭',
+  venue: params.get('venue') || 'ベルサール渋谷ガーデン / Spotify O-nest / SHIBUYA DESEO / SHIBUYA THE GAME / チェルシーホテル',
+  date: params.get('date') || '7.11', weekday: params.get('weekday') || '土',
+  openTime: params.get('openTime') || '9:00', startTime: params.get('startTime') || '9:30',
+  name: params.get('name') || 'デモ太郎', favorite: params.get('favorite') || 'ハニースパイスRe.',
+  ticketName: params.get('ticketName') || '【DAY1】VIPチケット先行抽選', ticketType: params.get('ticketType') || 'SA-437',
+  detailUrl: params.get('detailUrl') || '',
   shareEnabled: params.get('shareEnabled') !== 'false',
-  bodyColor: safeDecode(params.get('bodyColor')) || '#f9d1b7', ticketColor: safeDecode(params.get('ticketColor')) || '#ec660f'
+  bodyColor: params.get('bodyColor') || '#f9d1b7', ticketColor: params.get('ticketColor') || '#ec660f'
 };
-const initialQrImage = data.qrImage;
+const storedQrImage = (()=>{ try{return localStorage.getItem('ticketQrImage') || '';}catch(e){return '';} })();
+const initialQrImage = data.qrImage || storedQrImage;
 const scrollTitle = params.get('scrollTitle') === 'true';
 const scrollVenue = params.get('scrollVenue') === 'true';
 const scrollTicket = params.get('scrollTicket') === 'true';

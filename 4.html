@@ -170,33 +170,14 @@ function openPreview(){
   if(!document.getElementById('qrImage').value){ try{ localStorage.removeItem('ticketQrImage'); }catch(e){} }
   const ids=["image","title","venue","date","weekday","openTime","startTime","name","favorite","ticketName","ticketType","shareEnabled","detailUrl","bodyColor","ticketColor"];
   const params=new URLSearchParams();
-  // すでにURLエンコードされた値が入力されていても、いったん通常の文字列へ戻す。
-  // URLSearchParams側で必要なエンコードを1回だけ行うため、%253A や %2523を防止する。
-  function normalizeParamValue(value){
-    let normalized = value == null ? '' : String(value);
-    for(let i=0;i<2;i++){
-      try{
-        const decoded = decodeURIComponent(normalized);
-        if(decoded === normalized) break;
-        normalized = decoded;
-      }catch(e){
-        break;
-      }
-    }
-    return normalized;
-  }
-  ids.forEach(id=>params.set(id,normalizeParamValue(document.getElementById(id).value)));
-  // 選択・貼り付けした画像もURLへ含める。受取側はlocalStorage不要。
+  ids.forEach(id=>params.set(id,document.getElementById(id).value));
   if(eventImageData && eventImageData.value){
-    params.set('eventImage', eventImageData.value);
-    params.set('eventImageMode','urlData');
+    try{ localStorage.setItem('eventImage', eventImageData.value); }catch(e){ console.warn('イベント画像の保存に失敗しました', e); }
+    params.set('eventImageMode','upload');
   }else{
-    params.delete('eventImage');
+    try{ localStorage.removeItem('eventImage'); }catch(e){}
     params.set('eventImageMode','url');
   }
-  const qrData = document.getElementById('qrImage').value;
-  if(qrData){ params.set('qrImage', qrData); }
-  else{ params.delete('qrImage'); }
   params.set("scrollTitle", document.getElementById("scrollTitle").checked ? "true" : "false");
   params.set("scrollVenue", document.getElementById("scrollVenue").checked ? "true" : "false");
   params.set("scrollTicket", document.getElementById("scrollTicket").checked ? "true" : "false");
