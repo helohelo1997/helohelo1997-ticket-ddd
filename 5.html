@@ -85,7 +85,7 @@ button{font-family:inherit}
 .image-blur{position:absolute;inset:0;background:center/cover no-repeat;filter:blur(7px);transform:scale(1.08);z-index:0}
 .image-main{position:relative;z-index:1;width:72%;height:86%;background-position:center;background-size:contain;background-repeat:no-repeat;background-color:rgba(255,255,255,.08);border-radius:.2rem;filter:drop-shadow(0 0 4px rgba(0,0,0,.4))}
 .image-main.noimage{display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#ffb37b,#f05f88,#4aa9e8);color:rgba(255,255,255,.85);font-size:3.2rem;font-weight:900;letter-spacing:.05em}
-.image-main.qr-mode{width:calc(100% - 8.2rem);height:calc(100% - 8.2rem);background-size:contain!important;background-repeat:no-repeat!important;background-position:center!important;background-color:#fff;border-radius:0;filter:none}
+.image-main.qr-mode{width:72%!important;height:auto!important;aspect-ratio:1 / 1!important;background-size:contain!important;background-repeat:no-repeat!important;background-position:center!important;background-color:#fff;border-radius:0;filter:none}
 .stamp{display:none;position:absolute;right:.3rem;bottom:.3rem;width:16.6rem;height:16.6rem;z-index:20;border-radius:50%;overflow:visible;pointer-events:none;background:rgba(255,255,255,.88);color:#ff0000;transform:none;transform-origin:right bottom}
 .stamp.show{display:block}
 .stamp .top,.stamp .stamp-bottom{position:absolute;color:#ff0000;background:transparent;font-size:1.7rem;font-weight:700;line-height:1.8rem;text-align:center;letter-spacing:0;z-index:10;display:block;white-space:nowrap}
@@ -523,7 +523,21 @@ setText('buyerName', data.name);
 setText('favorite', data.favorite);
 setText('ticketName1', data.ticketName);
 setText('ticketName2', data.ticketName);
-const refNumber=document.getElementById('referenceNumber-3NkM9bH59X6yCnowSBfX'); if(refNumber){refNumber.textContent=data.ticketType || 'SA-437';}
+const refNumber=document.getElementById('referenceNumber-3NkM9bH59X6yCnowSBfX');
+if(refNumber){
+  const ticketCode=data.ticketType || 'SA-437';
+  refNumber.textContent=ticketCode;
+  const len=Array.from(ticketCode).length;
+  if(len<=4){
+    refNumber.style.fontSize='3.2rem';
+  }else if(len<=6){
+    refNumber.style.fontSize='2.9rem';
+  }else if(len<=8){
+    refNumber.style.fontSize='2.6rem';
+  }else{
+    refNumber.style.fontSize='2.4rem';
+  }
+}
 
 function setMarqueeEnabled(ids, enabled){
   ids.forEach((id, index)=>{
