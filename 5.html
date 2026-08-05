@@ -630,37 +630,10 @@ if(data.image.trim()){
 setQrImage();
 const enterBtn=document.getElementById('enterBtn'), sliderText=document.getElementById('sliderText'), stamp=document.getElementById('stamp'), stampTime=document.getElementById('stampTime');
 const confirmBackdrop=document.getElementById('confirmBackdrop'), confirmCancel=document.getElementById('confirmCancel'), confirmEnter=document.getElementById('confirmEnter'), confirmClose=document.getElementById('confirmClose');
-// 入場状態はチケットごとのキーでブラウザに永続保存する
-const enteredStorageKey = 'ticketEntered:' + [data.title, data.date, data.ticketType].join('|');
-const enteredTimeStorageKey = enteredStorageKey + ':time';
-let done = (()=>{ try{return localStorage.getItem(enteredStorageKey) === 'true';}catch(e){return false;} })();
+let done=false;
 function openConfirm(){if(done)return;confirmBackdrop.classList.add('show');confirmBackdrop.setAttribute('aria-hidden','false')}
 function closeConfirm(){confirmBackdrop.classList.remove('show');confirmBackdrop.setAttribute('aria-hidden','true')}
-function renderEnteredState(savedTime){
-  if(savedTime) stampTime.textContent=savedTime;
-  stamp.classList.add('show');
-  setEventImage();
-  enterBtn.classList.add('done');
-  document.querySelector('.bottom')?.classList.add('entered');
-  sliderText.innerHTML='<div class="TicketAction_statusPill__6TSMl"><span class="Typography_root__9AOcJ TicketAction_statusPillText__awXgI" style="--color: var(--w1); --bg-color: var(--undefined); --line-num: 1; font-size: 1.6rem; font-weight: 600;">ボタンタップにより入場済</span></div>';
-}
-function complete(){
-  done=true;
-  closeConfirm();
-  const now=new Date();
-  const enteredTime=String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');
-  try{
-    localStorage.setItem(enteredStorageKey,'true');
-    localStorage.setItem(enteredTimeStorageKey,enteredTime);
-  }catch(e){}
-  renderEnteredState(enteredTime);
-}
-// 更新、再起動後も保存済みの入場状態と時刻を復元する
-if(done){
-  let savedTime='';
-  try{savedTime=localStorage.getItem(enteredTimeStorageKey) || '';}catch(e){}
-  renderEnteredState(savedTime);
-}
+function complete(){done=true;closeConfirm();const now=new Date();stampTime.textContent=String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');stamp.classList.add('show');setEventImage();enterBtn.classList.add('done');document.querySelector('.bottom')?.classList.add('entered');sliderText.innerHTML='<div class="TicketAction_statusPill__6TSMl"><span class="Typography_root__9AOcJ TicketAction_statusPillText__awXgI" style="--color: var(--w1); --bg-color: var(--undefined); --line-num: 1; font-size: 1.6rem; font-weight: 600;">ボタンタップにより入場済</span></div>'; }
 enterBtn.addEventListener('click',openConfirm);
 confirmCancel.addEventListener('click',closeConfirm);
 confirmClose.addEventListener('click',closeConfirm);
